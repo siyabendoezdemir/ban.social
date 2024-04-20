@@ -25,7 +25,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col w-screen h-screen justify-center items-center bg-slate-900">
-      <h1>Tobi's current Social Credit Score</h1>
+      <h1>Tobi&apos;s current Social Credit Score</h1>
       <p className="font-black text-9xl">{creditScore}</p>
     </main>
   );
