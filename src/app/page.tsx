@@ -1,17 +1,16 @@
 import { env } from "process";
 
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import { Update } from "@/components/update";
 import { createClient } from "@/lib/supabase/server";
+import { createClient as createUpdateClient } from "@supabase/supabase-js";
 import { LoginButton } from "@/components/login-button";
 
 export default async function Home() {
   let creditScore = 0;
 
   const supabase = createClient()
-
   const { data, error } = await supabase.auth.getUser();
 
   try {
@@ -45,6 +44,7 @@ export default async function Home() {
         <h1>Tobi&apos;s current Social Credit Score</h1>
         <p className="font-black text-9xl">{creditScore}</p>
       </section>
+
     </main>
   );
 }

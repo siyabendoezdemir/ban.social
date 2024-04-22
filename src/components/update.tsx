@@ -17,7 +17,8 @@ import { Button } from "@/components/ui/button";
 import { updateCredits } from "@/lib/updateCredits";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
+
+import { createClient as createUpdateClient } from "@supabase/supabase-js";
 
 export function Update() {
   const [amount, setAmount] = React.useState("");
@@ -27,11 +28,12 @@ export function Update() {
 
   const router = useRouter();
 
+  /* HANDLE CREDIT UPDATES*/
   async function handleUpdate() {
-    if(!amount) return toast.error("Please enter an amount");
+    if (!amount) return toast.error("Please enter an amount");
     setLoading(true);
     const response = await updateCredits(tabValue, parseInt(amount)).then(
-      () => {
+      (payload) => {
         router.refresh();
         setLoading(false);
         setDialogOpen(false);
@@ -39,20 +41,38 @@ export function Update() {
       }
     );
 
-    if (response === 200) {
+    if (response) {
       toast.success("Credits updated successfully");
     } else {
       toast.error("An error occurred while updating credits");
     }
   }
 
+  const client = createUpdateClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string);
+  const updatesChannel = client.channel('updates');
+
+  function broadcastUpdate(broadcast: any) {
+    toast.info("skibidi");
+  }
+
+  updatesChannel
+    .on(
+      'broadcast',
+      { event: 'creditChange' },
+      (payload) => broadcastUpdate(payload)
+    )
+    .subscribe();
+
+  /* LIVE DATA FETCHING */
   setTimeout(() => {
+    updatesChannel.unsubscribe();
     router.refresh();
   }, 5000);
 
+
+
   return (
     <Dialog defaultOpen={false} open={dialogOpen} onOpenChange={setDialogOpen}>
-      <Toaster />
       <DialogTrigger asChild>
         <Button variant="outline">Update</Button>
       </DialogTrigger>
