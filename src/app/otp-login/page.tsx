@@ -23,9 +23,9 @@ export default async function OtpLogin() {
         <form className="w-screen h-screen flex justify-center items-center">
             <Card className="w-full max-w-sm">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Create your account</CardTitle>
+                    <CardTitle className="text-2xl">Set your password</CardTitle>
                     <CardDescription>
-                        Register your account to start using ban.social
+                        Set your password to register your account
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-4">
