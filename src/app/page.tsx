@@ -8,7 +8,6 @@ import { createClient } from "@/lib/supabase/server";
 import { LoginButton } from "@/components/login-button";
 
 export default async function Home() {
-
   let creditScore = 0;
 
   const supabase = createClient()

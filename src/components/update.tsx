@@ -46,6 +46,10 @@ export function Update() {
     }
   }
 
+  setTimeout(() => {
+    router.refresh();
+  }, 5000);
+
   return (
     <Dialog defaultOpen={false} open={dialogOpen} onOpenChange={setDialogOpen}>
       <Toaster />

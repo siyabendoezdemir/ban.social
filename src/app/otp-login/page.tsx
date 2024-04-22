@@ -16,9 +16,6 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { verifyOtp } from "./actions";
 
 export default async function OtpLogin() {
-    const params = useParams();
-    console.log(params);
-
     return (
         <form className="w-screen h-screen flex justify-center items-center">
             <Card className="w-full max-w-sm">
