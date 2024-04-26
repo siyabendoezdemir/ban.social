@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { updateCredits } from "@/lib/updateCredits";
+import { updateCredits } from "@/lib/credits";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -34,7 +34,6 @@ export function Update() {
     setLoading(true);
     const response = await updateCredits(tabValue, parseInt(amount)).then(
       (payload) => {
-        router.refresh();
         setLoading(false);
         setDialogOpen(false);
         return 200;
@@ -47,29 +46,6 @@ export function Update() {
       toast.error("An error occurred while updating credits");
     }
   }
-
-  const client = createUpdateClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string);
-  const updatesChannel = client.channel('updates');
-
-  function broadcastUpdate(broadcast: any) {
-    toast.info("skibidi");
-  }
-
-  updatesChannel
-    .on(
-      'broadcast',
-      { event: 'creditChange' },
-      (payload) => broadcastUpdate(payload)
-    )
-    .subscribe();
-
-  /* LIVE DATA FETCHING */
-  setTimeout(() => {
-    updatesChannel.unsubscribe();
-    router.refresh();
-  }, 5000);
-
-
 
   return (
     <Dialog defaultOpen={false} open={dialogOpen} onOpenChange={setDialogOpen}>

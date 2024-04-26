@@ -2,8 +2,37 @@
 
 import { env } from "process";
 
-import { createClient as createUpdateClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import { createClient as createUpdateClient } from "@supabase/supabase-js";
+
+const client = createUpdateClient(
+  env.NEXT_PUBLIC_SUPABASE_URL as string,
+  env.SUPABASE_SERVICE_ROLE_KEY as string
+);
+const updatesChannel = client.channel("updates");
+
+export async function getCredits() {
+  let creditScore = 0;
+
+  try {
+    const response = await fetch(
+      `https://upcred.it/api/user/get?id=${env.TOBI_ID}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "UC-Key": `${process.env.UC_API_KEY}`,
+        },
+      }
+    ).then((res) => res.json());
+
+    creditScore = response.data[0].credits;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return creditScore;
+}
 
 export async function updateCredits(
   updateType: string,
@@ -11,12 +40,6 @@ export async function updateCredits(
   comment?: string
 ) {
   const supabase = createClient();
-
-  const client = createUpdateClient(
-    env.NEXT_PUBLIC_SUPABASE_URL as string,
-    env.SUPABASE_SERVICE_ROLE_KEY as string
-  );
-  const updatesChannel = client.channel("updates");
 
   const payload = {
     sender: (await supabase.auth.getUser()).data.user?.email?.split("@")[0],
