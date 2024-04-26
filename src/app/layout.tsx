@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "ban.social - Improve your social circle",
   description: "Your network is your net worth so stop hanging out with low value individuals and start connectin with people that will help you improve.",
   openGraph: {
-    title: 'ban.social',
+    title: 'ban.social - Improve your social circle',
     description: 'Your network is your net worth so stop hanging out with low value individuals and start connectin with people that will help you improve.',
     url: 'https://ban.social/',
     siteName: 'ban.social',
