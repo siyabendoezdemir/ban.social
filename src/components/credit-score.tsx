@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { toast } from "sonner";
 
+import { Skeleton } from "@/components/ui/skeleton"
+
 export function CreditScore() {
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string);
 
     const [creditScore, setCreditScore] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     function broadcastUpdate(broadcast: any) {
         console.log(broadcast);
@@ -21,6 +24,7 @@ export function CreditScore() {
     useEffect(() => {
         const fetchCreditScore = setInterval(async () => {
             setCreditScore(await getCredits());
+            setLoading(false);
         }, 5000);
 
         return () => clearInterval(fetchCreditScore);
@@ -43,7 +47,7 @@ export function CreditScore() {
     return (
         <section className="w-full h-full flex flex-col justify-center items-center">
             <h1>Tobi&apos;s current Social Credit Score</h1>
-            <p className="font-black text-9xl">{creditScore}</p>
+            {loading ? <Skeleton className="h-36 w-[250px]" /> : <p className="font-black text-9xl">{creditScore}</p>}
         </section>
     )
 }
