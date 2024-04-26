@@ -16,6 +16,26 @@ const fontSans = FontSans({
 export const metadata: Metadata = {
   title: "ban.social - Improve your social circle",
   description: "Your network is your net worth so stop hanging out with low value individuals and start connectin with people that will help you improve.",
+  twitter: {
+    title: "ban.social - Improve your social circle",
+    card: "summary_large_image",
+    description: "Your network is your net worth so stop hanging out with low value individuals and start connectin with people that will help you improve.",
+    creator: "@siyabuilt",
+    images: [
+      {
+        url: 'https://ban.social/og/800x600.png',
+        width: 800,
+        height: 600,
+        alt: 'ban.social OG image'
+      },
+      {
+        url: 'https://ban.social/og/1800x1600.png',
+        width: 1800,
+        height: 1600,
+        alt: 'Ban.social OG image',
+      },
+    ]
+  },
   openGraph: {
     title: 'ban.social - Improve your social circle',
     description: 'Your network is your net worth so stop hanging out with low value individuals and start connectin with people that will help you improve.',
