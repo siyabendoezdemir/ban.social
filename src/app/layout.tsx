@@ -14,8 +14,30 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "Tobi's Social Credit Score",
-  description: "Check out Tobi's current social credit score!",
+  title: "ban.social - Improve your social circle",
+  description: "Your network is your net worth so stop hanging out with low value individuals and start connectin with people that will help you improve.",
+  openGraph: {
+    title: 'ban.social',
+    description: 'Your network is your net worth so stop hanging out with low value individuals and start connectin with people that will help you improve.',
+    url: 'https://ban.social/',
+    siteName: 'ban.social',
+    images: [
+      {
+        url: 'https://ban.social/og/800x600.png',
+        width: 800,
+        height: 600,
+        alt: 'ban.social OG image'
+      },
+      {
+        url: 'https://ban.social/og/1800x1600.png',
+        width: 1800,
+        height: 1600,
+        alt: 'Ban.social OG image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
